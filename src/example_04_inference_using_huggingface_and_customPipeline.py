@@ -15,6 +15,7 @@ from torch.nn.functional import softmax
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from utils.utils_huggingface import inference_results
 
+
 class CustomPipeline:
     def __init__(self, model_id):
         self.model = AutoModelForSequenceClassification.from_pretrained(model_id)
@@ -23,6 +24,8 @@ class CustomPipeline:
 
     def __call__(self, texts: typing.List):
         tokenized = self.tokenizer(texts, return_tensors="pt", padding=True, truncation=True)
+        # tokenized = self.tokenizer(texts, return_tensors="pt", padding=True, truncation=True,
+        #                            clean_up_tokenization_spaces=True)
 
         with torch.no_grad():
             outputs = self.model(**tokenized)
