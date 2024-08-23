@@ -2,3 +2,17 @@
 #pip install transformers[torch]==4.44.1 datasets==2.19.0 huggingface_hub==0.24.6 jupyter
 #pip install python-dotenv==1.0.1
 #pip install accelerate==0.33.0 peft==0.12.0 bitsandbytes==0.43.3
+#pip install tiktoken==0.7.0 autotrain-advanced==0.8.12
+torch==2.1.1
+torchvision==0.16.1
+torchaudio==2.1.1
+transformers==4.44.1
+datasets==2.19.0
+huggingface_hub==0.23.4
+jupyter==1.0.0
+python-dotenv==1.0.1
+accelerate==0.33.0
+peft==0.12.0
+bitsandbytes==0.43.3
+tiktoken==0.6.0
+autotrain-advanced==0.8.12
