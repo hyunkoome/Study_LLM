@@ -143,3 +143,5 @@ dmypy.json
 
 huggingface_local_cache/
 .huggingface_env2
+requests/
+results/
