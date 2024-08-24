@@ -1,0 +1,16 @@
+# ninja log v5
+0	14030	1724482680614034168	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/cuda_64/autogptq_cuda_64.o	bb3072ecaa32e4b3
+1	27099	1724482693686615093	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/cuda_64/autogptq_cuda_kernel_64.o	fa5ad30e37719e7
+0	13626	1724482708019251824	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/cuda_256/autogptq_cuda_256.o	ff9060b9387d0c7c
+0	27419	1724482721811864382	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/cuda_256/autogptq_cuda_kernel_256.o	d0134ac4110d3cea
+0	3858	1724482726364066516	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/marlin/marlin_cuda_kernel.o	fc8d5d028171e6c6
+0	13432	1724482735928491151	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/marlin/marlin_cuda.o	6e90717e4f7f4937
+0	22381	1724482744880888541	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/marlin/marlin_repack.o	d1932beef22b6d41
+0	401	1724482745568919079	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllama/cuda_buffers.o	603bd916574ac600
+0	406	1724482745572919256	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllama/cuda_func/column_remap.o	fafe39cf4f0a74b4
+1	491	1724482745656922985	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllama/cuda_func/q4_matrix.o	ae70a80a599d596d
+1	2658	1724482747821019035	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllama/cuda_func/q4_matmul.o	778ccde8d1dbc3e6
+1	13358	1724482758513493547	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllama/exllama_ext.o	a486facc2869c413
+0	650	1724482759381532064	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllamav2/cuda/q_matrix.o	977267d06843dc0f
+0	9839	1724482768569939744	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllamav2/cuda/q_gemm.o	cf6602874ce1f30f
+0	13585	1724482772310105671	/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/AutoGPTQ/build/temp.linux-x86_64-cpython-310/autogptq_extension/exllamav2/ext.o	717d198f190eb055

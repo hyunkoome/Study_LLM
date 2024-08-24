@@ -10,7 +10,8 @@ __pycache__/
 *$py.class
 
 # C extensions
-#*.so
+*.so
+*.eff-info*/
 
 # Distribution / packaging
 .Python
@@ -33,7 +34,6 @@ share/python-wheels/
 *.egg
 *.whl
 *.zip
-MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
