@@ -10,8 +10,7 @@ __pycache__/
 *$py.class
 
 # C extensions
-#*.so
-#*.eff-info*/
+*.so
 
 
 # Distribution / packaging
@@ -144,9 +143,6 @@ huggingface_local_cache/
 .huggingface_env2
 requests/
 results/
-
-# C extensions
-*.so
 
 
 # Unit test / coverage reports
