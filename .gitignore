@@ -10,8 +10,8 @@ __pycache__/
 *$py.class
 
 # C extensions
-*.so
-*.eff-info*/
+#*.so
+#*.eff-info*/
 
 
 # Distribution / packaging
