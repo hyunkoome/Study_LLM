@@ -16,15 +16,15 @@ from dataclasses import (
 
 
 async def process_api_requests_from_file(
-    requests_filepath: str,
-    save_filepath: str,
-    request_url: str,
-    api_key: str,
-    max_requests_per_minute: float,
-    max_tokens_per_minute: float,
-    token_encoding_name: str,
-    max_attempts: int,
-    logging_level: int,
+        requests_filepath: str,
+        save_filepath: str,
+        request_url: str,
+        api_key: str,
+        max_requests_per_minute: float,
+        max_tokens_per_minute: float,
+        token_encoding_name: str,
+        max_attempts: int,
+        logging_level: int,
 ):
     """Processes API requests in parallel, throttling to stay under rate limits."""
     # constants
@@ -119,8 +119,8 @@ async def process_api_requests_from_file(
                 if next_request:
                     next_request_tokens = next_request.token_consumption
                     if (
-                        available_request_capacity >= 1
-                        and available_token_capacity >= next_request_tokens
+                            available_request_capacity >= 1
+                            and available_token_capacity >= next_request_tokens
                     ):
                         # update counters
                         available_request_capacity -= 1
@@ -149,19 +149,20 @@ async def process_api_requests_from_file(
 
                 # if a rate limit error was hit recently, pause to cool down
                 seconds_since_rate_limit_error = (
-                    time.time() - status_tracker.time_of_last_rate_limit_error
+                        time.time() - status_tracker.time_of_last_rate_limit_error
                 )
                 if (
-                    seconds_since_rate_limit_error
-                    < seconds_to_pause_after_rate_limit_error
+                        seconds_since_rate_limit_error
+                        < seconds_to_pause_after_rate_limit_error
                 ):
                     remaining_seconds_to_pause = (
-                        seconds_to_pause_after_rate_limit_error
-                        - seconds_since_rate_limit_error
+                            seconds_to_pause_after_rate_limit_error
+                            - seconds_since_rate_limit_error
                     )
                     await asyncio.sleep(remaining_seconds_to_pause)
                     # ^e.g., if pause is 15 seconds and final limit was hit 5 seconds ago
-                    logging.warn(
+                    # logging.warn(
+                    logging.warning(
                         f"Pausing to cool down until {time.ctime(status_tracker.time_of_last_rate_limit_error + seconds_to_pause_after_rate_limit_error)}"
                     )
 
@@ -208,20 +209,20 @@ class APIRequest:
     result: list = field(default_factory=list)
 
     async def call_api(
-        self,
-        session: aiohttp.ClientSession,
-        request_url: str,
-        request_header: dict,
-        retry_queue: asyncio.Queue,
-        save_filepath: str,
-        status_tracker: StatusTracker,
+            self,
+            session: aiohttp.ClientSession,
+            request_url: str,
+            request_header: dict,
+            retry_queue: asyncio.Queue,
+            save_filepath: str,
+            status_tracker: StatusTracker,
     ):
         """Calls the OpenAI API and saves results."""
         logging.info(f"Starting request #{self.task_id}")
         error = None
         try:
             async with session.post(
-                url=request_url, headers=request_header, json=self.request_json
+                    url=request_url, headers=request_header, json=self.request_json
             ) as response:
                 response = await response.json()
             if "error" in response:
@@ -238,7 +239,7 @@ class APIRequest:
                     )
 
         except (
-            Exception
+                Exception
         ) as e:  # catching naked exceptions is bad practice, but in this case we'll log & save them
             logging.warning(f"Request {self.task_id} failed with Exception {e}")
             status_tracker.num_other_errors += 1
@@ -291,9 +292,9 @@ def append_to_jsonl(data, filename: str) -> None:
 
 
 def num_tokens_consumed_from_request(
-    request_json: dict,
-    api_endpoint: str,
-    token_encoding_name: str,
+        request_json: dict,
+        api_endpoint: str,
+        token_encoding_name: str,
 ):
     """Count the number of tokens in the request. Only supports completion and embedding requests."""
     encoding = tiktoken.get_encoding(token_encoding_name)
