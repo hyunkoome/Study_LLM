@@ -131,6 +131,7 @@ if __name__ == '__main__':
     Path(f"{save_root_dir}/openai").mkdir(parents=True, exist_ok=True)
     Path(f"{save_root_dir}/fine_tune_train_data").mkdir(parents=True, exist_ok=True)
     save_root_dir = str(Path(save_root_dir).resolve())
+    print('save_root_dir: ', save_root_dir)
 
     print('# 6.3.1 기초 모델 평가 하기')
     print('## 예제 6.7. 기초 모델로 생성하기')
