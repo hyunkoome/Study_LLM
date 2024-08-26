@@ -21,6 +21,7 @@ from peft import LoraConfig, PeftModel
 from tqdm import tqdm
 import gc
 from huggingface_hub import login
+# from pathlib import Path
 
 
 def make_prompt(ddl, question, query=''):
@@ -100,8 +101,8 @@ def change_jsonl_to_csv(input_file, output_file, prompt_column="prompt", respons
                 responses.append(json.loads(data)[1]['choices'][0]['message']['content'])
             else:
                 print("'choices' 키가 존재하지 않습니다.")
-            # prompts.append(json.loads(data)[0]['messages'][0]['content'])
-            # responses.append(json.loads(data)[1]['choices'][0]['message']['content'])
+                # prompts.append(json.loads(data)[0]['messages'][0]['content'])
+                # responses.append(json.loads(data)[1]['choices'][0]['message']['content'])
 
     df = pd.DataFrame({prompt_column: prompts, response_column: responses})
     df.to_csv(output_file, index=False)
@@ -123,7 +124,13 @@ def make_inference_pipeline(model_id):
 
 
 if __name__ == '__main__':
-    save_root_dir = "/home/hyunkoo/DATA/HDD8TB/GenAI/Study_LLM/data/example6"
+    save_root_dir = "./results_data/example6"
+    Path(f"{save_root_dir}").mkdir(parents=True, exist_ok=True)
+    Path(f"{save_root_dir}/ko_text2sql").mkdir(parents=True, exist_ok=True)
+    Path(f"{save_root_dir}/requests").mkdir(parents=True, exist_ok=True)
+    Path(f"{save_root_dir}/openai").mkdir(parents=True, exist_ok=True)
+    Path(f"{save_root_dir}/fine_tune_train_data").mkdir(parents=True, exist_ok=True)
+    save_root_dir = str(Path(save_root_dir).resolve())
 
     print('# 6.3.1 기초 모델 평가 하기')
     print('## 예제 6.7. 기초 모델로 생성하기')
@@ -195,7 +202,7 @@ if __name__ == '__main__':
     asyncio.run(
         process_api_requests_from_file(
             requests_filepath=f"{save_root_dir}/requests/{eval_filepath}",
-            save_filepath=f"{save_root_dir}/results/{eval_filepath}",
+            save_filepath=f"{save_root_dir}/openai/{eval_filepath}",
             request_url=request_url,
             api_key=api_key,
             max_requests_per_minute=float(max_requests_per_minute),
@@ -208,8 +215,6 @@ if __name__ == '__main__':
 
     print('# 6.3.2 미세 조정 수행')
     print('## 6.9 학습 데이터 불러오기')
-    # save_data_path = f"{save_root_dir}/train_data"
-
     df_sql = load_dataset("shangrilar/ko_text2sql", "origin")["train"]
     df_sql = df_sql.to_pandas()
     df_sql = df_sql.dropna().sample(frac=1, random_state=42)
@@ -219,7 +224,7 @@ if __name__ == '__main__':
         df_sql.loc[idx, 'text'] = make_prompt(row['context'], row['question'], row['answer'])
     df_sql.to_csv(f"{save_root_dir}/ko_text2sql/df_sql_train.csv", index=False)
 
-    df_sql.to_csv(f"{save_root_dir}/train_data/train.csv", index=False)
+    df_sql.to_csv(f"{save_root_dir}/fine_tune_train_data/train.csv", index=False)
 
     print('## 미세조정')
     # base_model_name = 'beomi/Yi-Ko-6B'
@@ -246,7 +251,7 @@ if __name__ == '__main__':
             --train \
             --model {base_model} \
             --project-name {finetuned_model}-full-fine-tuning \
-            --data-path {save_root_dir}/train_data \
+            --data-path {save_root_dir}/fine_tune_train_data \
             --text-column text \
             --lr 2e-4 \
             --batch-size 8 \
@@ -367,7 +372,7 @@ if __name__ == '__main__':
     """
     !python api_request_parallel_processor.py \
       --requests_filepath requests/{ft_eval_filepath} \
-      --save_filepath results/{ft_eval_filepath} \
+      --save_filepath openai/{ft_eval_filepath} \
       --request_url https://api.openai.com/v1/chat/completions \
       --max_requests_per_minute 2500 \
       --max_tokens_per_minute 100000 \
@@ -386,7 +391,7 @@ if __name__ == '__main__':
     asyncio.run(
         process_api_requests_from_file(
             requests_filepath=f"{save_root_dir}/requests/{ft_eval_filepath}",
-            save_filepath=f"{save_root_dir}/results/{ft_eval_filepath}",
+            save_filepath=f"{save_root_dir}/openai/{ft_eval_filepath}",
             request_url=request_url,
             api_key=api_key,
             max_requests_per_minute=float(max_requests_per_minute),
@@ -397,8 +402,8 @@ if __name__ == '__main__':
         )
     )
 
-    ft_eval = change_jsonl_to_csv(f"{save_root_dir}/results/{ft_eval_filepath}",
-                                  f"{save_root_dir}/results/yi_ko_6b_eval_{ft_eval_filepath}.csv",
+    ft_eval = change_jsonl_to_csv(f"{save_root_dir}/openai/{ft_eval_filepath}",
+                                  f"{save_root_dir}/openai/yi_ko_6b_eval_{ft_eval_filepath}.csv",
                                   "prompt",
                                   "resolve_yn")
     ft_eval['resolve_yn'] = ft_eval['resolve_yn'].apply(lambda x: json.loads(x)['resolve_yn'])
@@ -438,7 +443,7 @@ if __name__ == '__main__':
     """
     !python api_request_parallel_processor.py \
       --requests_filepath requests/{ft_eval_filepath} \
-      --save_filepath results/{ft_eval_filepath} \
+      --save_filepath openai/{ft_eval_filepath} \
       --request_url https://api.openai.com/v1/chat/completions \
       --max_requests_per_minute 2500 \
       --max_tokens_per_minute 100000 \
@@ -457,7 +462,7 @@ if __name__ == '__main__':
     asyncio.run(
         process_api_requests_from_file(
             requests_filepath=f"{save_root_dir}/requests/{ft_eval_filepath}",
-            save_filepath=f"{save_root_dir}/results/{ft_eval_filepath}",
+            save_filepath=f"{save_root_dir}/openai/{ft_eval_filepath}",
             request_url=request_url,
             api_key=api_key,
             max_requests_per_minute=float(max_requests_per_minute),
@@ -468,8 +473,8 @@ if __name__ == '__main__':
         )
     )
 
-    ft_eval = change_jsonl_to_csv(f"{save_root_dir}/results/{ft_eval_filepath}",
-                                  f"{save_root_dir}/results/yi_ko_6b_eval_{ft_eval_filepath}.csv",
+    ft_eval = change_jsonl_to_csv(f"{save_root_dir}/openai/{ft_eval_filepath}",
+                                  f"{save_root_dir}/openai/yi_ko_6b_eval_{ft_eval_filepath}.csv",
                                   "prompt",
                                   "resolve_yn")
     ft_eval['resolve_yn'] = ft_eval['resolve_yn'].apply(lambda x: json.loads(x)['resolve_yn'])
