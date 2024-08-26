@@ -136,7 +136,7 @@ if __name__ == '__main__':
     # print(eval)
 
     # login(token="본인의 허깅페이스 토큰 입력")
-    login(token=os.getenv('HUGGINGFACE_TOCKEN'))
+    login(token=os.getenv('HF_TOKEN'))
 
     # Trainer를 사용한 경우
     # trainer.push_to_hub(repo_id)

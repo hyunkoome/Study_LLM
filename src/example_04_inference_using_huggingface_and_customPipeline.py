@@ -44,7 +44,7 @@ if __name__ == '__main__':
     query_list = dataset["title"][:5]
 
     # login(token="본인의 허깅페이스 토큰 입력")
-    login(token=os.getenv('HUGGINGFACE_TOCKEN'))
+    login(token=os.getenv('HF_TOKEN'))
 
     num_epochs = 2
     # repo_id = f"본인의 아이디 입력/roberta-base-klue-ynat-classification"
