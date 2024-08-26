@@ -255,7 +255,7 @@ if __name__ == '__main__':
             --data-path {save_root_dir}/fine_tune_train_data \
             --text-column text \
             --lr 2e-4 \
-            --batch-size 8 \
+            --batch-size 32 \
             --epochs 1 \
             --block-size 1024 \
             --warmup-ratio 0.1 \
