@@ -133,6 +133,8 @@ if __name__ == '__main__':
     save_root_dir = str(Path(save_root_dir).resolve())
     print('save_root_dir: ', save_root_dir)
 
+    torch.cuda.empty_cache()
+
     print('# 6.3.1 기초 모델 평가 하기')
     print('## 예제 6.7. 기초 모델로 생성하기')
     model_id = 'beomi/Yi-Ko-6B'
@@ -280,6 +282,7 @@ if __name__ == '__main__':
         exit()
 
     print("명령어가 성공적으로 실행되었습니다. 다음 작업을 수행합니다.")
+    torch.cuda.empty_cache()
 
     print('## 예제 6.11. LoRA 어댑터 결합 및 허깅페이스 허브 업로드')
     # login(token="본인의 허깅페이스 토큰 입력")
