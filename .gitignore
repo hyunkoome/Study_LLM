@@ -202,3 +202,4 @@ cython_debug/
 results_data/
 /src/yi-ko-6b-text2sql/
 yi-ko-6b-text2sql-full-fine-tuning/
+wandb/
