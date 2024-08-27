@@ -24,7 +24,7 @@ huggingface_hub==0.23.4
 optimum==1.17.1
 aiohttp==3.10.5
 
-vllm==0.5.2
+vllm==0.5.3.post1 #0.5.2
 llama-index==0.10.34
 langchain-openai==0.1.6
 nemoguardrails[openai]==0.8.0

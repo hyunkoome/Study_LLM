@@ -165,72 +165,71 @@ if __name__ == '__main__':
                        return_full_text=False, max_length=512, truncation=True)
     print(gen_sqls)
 
-    # print('## 예제 6.8. 기초 모델 성능 측정')
-    #
-    # print('# 데이터셋 불러오기')
-    # df = load_dataset("shangrilar/ko_text2sql", "origin")['test']
-    # df = df.to_pandas()
-    # for idx, row in tqdm(df.iterrows()):
-    #     prompt = make_prompt(row['context'], row['question'])
-    #     df.loc[idx, 'prompt'] = prompt
-    #
-    # print(df['prompt'].tolist()[0])
-    #
-    # print('# sql 생성')
-    # # gen_sqls = hf_pipe(df['prompt'].tolist(), do_sample=False,
-    # #                    return_full_text=False, max_length=512, truncation=True)
-    # # gen_sqls = [x[0]['generated_text'] for x in gen_sqls]
-    # # df['gen_sql'] = gen_sqls
-    # total_elements = len(df)
-    # for idx, row in df.iterrows():
-    #     gen_sqls = hf_pipe(row['prompt'], do_sample=False,
-    #                        return_full_text=False, max_length=512, truncation=True)
-    #     gen_sqls = gen_sqls[0]['generated_text']
-    #     df.loc[idx, 'gen_sql'] = gen_sqls
-    #     print(f'... done: {idx}/{total_elements} ')
-    #
-    # df.to_csv(f"{save_root_dir}/ko_text2sql/df_test.csv", index=False)
-    df = pd.read_csv(f"{save_root_dir}/ko_text2sql/df_test.csv")
+    print('## 예제 6.8. 기초 모델 성능 측정')
 
-    # print('# 평가를 위한 requests.jsonl 생성')
-    # eval_filepath = "text2sql_evaluation.jsonl"
-    # make_requests_for_gpt_evaluation(df, f"{save_root_dir}/requests/{eval_filepath}")
-    #
-    # print('# 기초 모델 성능 측정')
-    # request_url = "https://api.openai.com/v1/chat/completions"
-    # api_key = os.environ["OPENAI_API_KEY"]
-    # max_requests_per_minute = 200  # 300
-    # max_tokens_per_minute = 100000
-    # token_encoding_name = "cl100k_base"
-    # max_attempts = 5
-    # logging_level = 20
-    #
-    # asyncio.run(
-    #     process_api_requests_from_file(
-    #         requests_filepath=f"{save_root_dir}/requests/{eval_filepath}",
-    #         save_filepath=f"{save_root_dir}/openai/{eval_filepath}",
-    #         request_url=request_url,
-    #         api_key=api_key,
-    #         max_requests_per_minute=float(max_requests_per_minute),
-    #         max_tokens_per_minute=float(max_tokens_per_minute),
-    #         token_encoding_name=token_encoding_name,
-    #         max_attempts=int(max_attempts),
-    #         logging_level=int(logging_level),
-    #     )
-    # )
-    #
-    # print('# 6.3.2 미세 조정 수행')
-    # print('## 6.9 학습 데이터 불러오기')
-    # df_sql = load_dataset("shangrilar/ko_text2sql", "origin")["train"]
-    # df_sql = df_sql.to_pandas()
-    # df_sql = df_sql.dropna().sample(frac=1, random_state=42)
-    # df_sql = df_sql.query("db_id != 1")
-    #
-    # for idx, row in tqdm(df_sql.iterrows()):
-    #     df_sql.loc[idx, 'text'] = make_prompt(row['context'], row['question'], row['answer'])
-    # df_sql.to_csv(f"{save_root_dir}/ko_text2sql/df_sql_train.csv", index=False)
-    #
-    # df_sql.to_csv(f"{save_root_dir}/fine_tune_train_data/train.csv", index=False)
+    print('# 데이터셋 불러오기')
+    df = load_dataset("shangrilar/ko_text2sql", "origin")['test']
+    df = df.to_pandas()
+    for idx, row in tqdm(df.iterrows()):
+        prompt = make_prompt(row['context'], row['question'])
+        df.loc[idx, 'prompt'] = prompt
+
+    print(df['prompt'].tolist()[0])
+
+    print('# sql 생성')
+    # gen_sqls = hf_pipe(df['prompt'].tolist(), do_sample=False,
+    #                    return_full_text=False, max_length=512, truncation=True)
+    # gen_sqls = [x[0]['generated_text'] for x in gen_sqls]
+    # df['gen_sql'] = gen_sqls
+    total_elements = len(df)
+    for idx, row in df.iterrows():
+        gen_sqls = hf_pipe(row['prompt'], do_sample=False,
+                           return_full_text=False, max_length=512, truncation=True)
+        gen_sqls = gen_sqls[0]['generated_text']
+        df.loc[idx, 'gen_sql'] = gen_sqls
+        print(f'... done: {idx}/{total_elements} ')
+
+    df.to_csv(f"{save_root_dir}/ko_text2sql/df_test.csv", index=False)
+    # df = pd.read_csv(f"{save_root_dir}/ko_text2sql/df_test.csv")
+
+    print('# 평가를 위한 requests.jsonl 생성')
+    eval_filepath = "text2sql_evaluation.jsonl"
+    make_requests_for_gpt_evaluation(df, f"{save_root_dir}/requests/{eval_filepath}")
+
+    print('# 기초 모델 성능 측정')
+    request_url = "https://api.openai.com/v1/chat/completions"
+    api_key = os.environ["OPENAI_API_KEY"]
+    max_requests_per_minute = 200  # 300
+    max_tokens_per_minute = 100000
+    token_encoding_name = "cl100k_base"
+    max_attempts = 5
+    logging_level = 20
+
+    asyncio.run(
+        process_api_requests_from_file(
+            requests_filepath=f"{save_root_dir}/requests/{eval_filepath}",
+            save_filepath=f"{save_root_dir}/openai/{eval_filepath}",
+            request_url=request_url,
+            api_key=api_key,
+            max_requests_per_minute=float(max_requests_per_minute),
+            max_tokens_per_minute=float(max_tokens_per_minute),
+            token_encoding_name=token_encoding_name,
+            max_attempts=int(max_attempts),
+            logging_level=int(logging_level),
+        )
+    )
+
+    print('# 6.3.2 미세 조정 수행')
+    print('## 6.9 학습 데이터 불러오기')
+    df_sql = load_dataset("shangrilar/ko_text2sql", "origin")["train"]
+    df_sql = df_sql.to_pandas()
+    df_sql = df_sql.dropna().sample(frac=1, random_state=42)
+    df_sql = df_sql.query("db_id != 1")
+
+    for idx, row in tqdm(df_sql.iterrows()):
+        df_sql.loc[idx, 'text'] = make_prompt(row['context'], row['question'], row['answer'])
+    df_sql.to_csv(f"{save_root_dir}/ko_text2sql/df_sql_train.csv", index=False)
+    df_sql.to_csv(f"{save_root_dir}/fine_tune_train_data/train.csv", index=False)
 
     print('## 미세조정')
     base_model_name = 'beomi/Yi-Ko-6B'
@@ -301,8 +300,6 @@ if __name__ == '__main__':
     print('HF 로그인')
     login(token=os.getenv('HF_TOKEN'))
 
-    # model_name = base_model_name
-    # model_name = base_model
     device_map = {"": 0}
 
     print('# LoRA와 기초 모델 파라미터 합치기')
@@ -346,8 +343,6 @@ if __name__ == '__main__':
     merged_model.save_pretrained(output_dir)
     tokenizer.save_pretrained(output_dir)
 
-    # merged_model.push_to_hub(repo_id=f"{finetuned_model_name}-finetune-lora-peft", use_temp_dir=False)
-    # tokenizer.push_to_hub(repo_id=f"{finetuned_model_name}-finetune-lora-peft", use_temp_dir=False)
     merged_model.push_to_hub(merged_model_id, working_dir=output_dir)
     tokenizer.push_to_hub(merged_model_id, working_dir=output_dir)
 
