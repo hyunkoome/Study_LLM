@@ -3,6 +3,7 @@
 #pip install transformers[torch]==4.44.1
 # git clone https://github.com/PanQiWei/AutoGPTQ.git && cd AutoGPTQ
 # pip install -vvv --no-build-isolation -e .
+# pip install -U sentence-transformers or pip install sentence-transformers[train]==3.0.1
 #pip install -r src/requirements.txt --use-deprecated=legacy-resolver
 # watch -d -n 0.5 nvidia-smi
 
@@ -23,12 +24,14 @@ autoawq==0.2.5
 huggingface_hub==0.23.4
 optimum==1.17.1
 aiohttp==3.10.5
-
 vllm==0.5.3.post1 #0.5.2
-llama-index==0.10.34
+llama-index==0.10.34  #0.11.2 #
 langchain-openai==0.1.6
 nemoguardrails[openai]==0.8.0
 openai==1.42.0 #1.25.1
 chromadb==0.5.0
 wandb==0.16.6
 llama-index-callbacks-wandb==0.1.2
+faiss-cpu==1.8.0
+llama-index-embeddings-huggingface==0.2.3  # >=0.2.0  #==0.2.0 # 0.3.1
+sentence-transformers==3.0.1
