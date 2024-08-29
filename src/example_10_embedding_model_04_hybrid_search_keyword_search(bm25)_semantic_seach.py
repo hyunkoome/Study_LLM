@@ -19,56 +19,6 @@ import faiss
 from llama_index.core import Document, VectorStoreIndex, ServiceContext
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
-# class BM25:
-#     """
-#     ## 예제 10.14 BM25 클래스 구현
-#     """
-#
-#     def __init__(self, corpus: List[List[str]], tokenizer: PreTrainedTokenizer):
-#         self.tokenizer = tokenizer
-#         self.corpus = corpus
-#         # self.tokenized_corpus = self.tokenizer(corpus, add_special_tokens=False)['input_ids']
-#         self.tokenized_corpus = self.tokenizer(corpus, add_special_tokens=False, truncation=True, max_length=512)[
-#             'input_ids']
-#         self.n_docs = len(self.tokenized_corpus)
-#         self.avg_doc_lens = sum(len(lst) for lst in self.tokenized_corpus) / len(self.tokenized_corpus)
-#         self.idf = self._calculate_idf()
-#         self.term_freqs = self._calculate_term_freqs()
-#
-#     def _calculate_idf(self):
-#         idf = defaultdict(float)
-#         for doc in self.tokenized_corpus:
-#             for token_id in set(doc):
-#                 idf[token_id] += 1
-#         for token_id, doc_frequency in idf.items():
-#             idf[token_id] = math.log(((self.n_docs - doc_frequency + 0.5) / (doc_frequency + 0.5)) + 1)
-#         return idf
-#
-#     def _calculate_term_freqs(self):
-#         term_freqs = [defaultdict(int) for _ in range(self.n_docs)]
-#         for i, doc in enumerate(self.tokenized_corpus):
-#             for token_id in doc:
-#                 term_freqs[i][token_id] += 1
-#         return term_freqs
-#
-#     def get_scores(self, query: str, k1: float = 1.2, b: float = 0.75):
-#         query = self.tokenizer([query], add_special_tokens=False)['input_ids'][0]
-#         scores = np.zeros(self.n_docs)
-#         for q in query:
-#             idf = self.idf[q]
-#             for i, term_freq in enumerate(self.term_freqs):
-#                 q_frequency = term_freq[q]
-#                 doc_len = len(self.tokenized_corpus[i])
-#                 score_q = idf * (q_frequency * (k1 + 1)) / (
-#                         (q_frequency) + k1 * (1 - b + b * (doc_len / self.avg_doc_lens)))
-#                 scores[i] += score_q
-#         return scores
-#
-#     def get_top_k(self, query: str, k: int):
-#         scores = self.get_scores(query)
-#         top_k_indices = np.argsort(scores)[-k:][::-1]
-#         top_k_scores = scores[top_k_indices]
-#         return top_k_scores, top_k_indices
 
 class BM25:
     """
@@ -76,15 +26,26 @@ class BM25:
     """
 
     def __init__(self, corpus: List[List[str]], tokenizer: PreTrainedTokenizer):
+        """
+
+        :param corpus:
+        :param tokenizer:
+        """
         self.tokenizer = tokenizer
         self.corpus = corpus
-        self.tokenized_corpus = self.tokenizer(corpus, add_special_tokens=False, truncation=True, max_length=512)['input_ids']
+        # self.tokenized_corpus = self.tokenizer(corpus, add_special_tokens=False)['input_ids']
+        self.tokenized_corpus = self.tokenizer(corpus, add_special_tokens=False, truncation=True, max_length=512)[
+            'input_ids']
         self.n_docs = len(self.tokenized_corpus)
         self.avg_doc_lens = sum(len(lst) for lst in self.tokenized_corpus) / len(self.tokenized_corpus)
         self.idf = self._calculate_idf()
         self.term_freqs = self._calculate_term_freqs()
 
     def _calculate_idf(self):
+        """
+
+        :return:
+        """
         idf = defaultdict(float)
         for doc in self.tokenized_corpus:
             for token_id in set(doc):
@@ -94,6 +55,10 @@ class BM25:
         return idf
 
     def _calculate_term_freqs(self):
+        """
+
+        :return:
+        """
         term_freqs = [defaultdict(int) for _ in range(self.n_docs)]
         for i, doc in enumerate(self.tokenized_corpus):
             for token_id in doc:
@@ -101,6 +66,13 @@ class BM25:
         return term_freqs
 
     def get_scores(self, query: str, k1: float = 1.2, b: float = 0.75):
+        """
+
+        :param query:
+        :param k1:
+        :param b:
+        :return:
+        """
         query = self.tokenizer([query], add_special_tokens=False)['input_ids'][0]
         scores = np.zeros(self.n_docs)
         for q in query:
@@ -114,13 +86,16 @@ class BM25:
         return scores
 
     def get_top_k(self, query: str, k: int):
+        """
+
+        :param query:
+        :param k:
+        :return:
+        """
         scores = self.get_scores(query)
         top_k_indices = np.argsort(scores)[-k:][::-1]
         top_k_scores = scores[top_k_indices]
         return top_k_scores, top_k_indices
-
-
-
 
 
 def reciprocal_rank_fusion(rankings: List[List[int]], k=5):
@@ -139,6 +114,14 @@ def reciprocal_rank_fusion(rankings: List[List[int]], k=5):
 
 
 def dense_vector_search(sentence_model, index, query: str, k: int):
+    """
+
+    :param sentence_model:
+    :param index:
+    :param query:
+    :param k:
+    :return:
+    """
     query_embedding = sentence_model.encode([query])
     distances, indices = index.search(query_embedding, k)
     return distances[0], indices[0]
