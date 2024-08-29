@@ -1,4 +1,4 @@
-#conda create -n llmbook python==3.10.12
+#conda create -n llmbook python==3.9
 #pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu121
 #pip install transformers[torch]==4.44.1
 # git clone https://github.com/PanQiWei/AutoGPTQ.git && cd AutoGPTQ
@@ -25,7 +25,7 @@ huggingface_hub==0.23.4
 optimum==1.17.1
 aiohttp==3.10.5
 vllm==0.5.3.post1 #0.5.2
-llama-index==0.10.34  #0.11.2 #
+llama-index==0.10.40 #0.10.34  #0.11.2 #
 langchain-openai==0.1.6
 nemoguardrails[openai]==0.8.0
 openai==1.42.0 #1.25.1
