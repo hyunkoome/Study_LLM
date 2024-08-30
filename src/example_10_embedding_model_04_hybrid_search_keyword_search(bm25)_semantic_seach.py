@@ -4,20 +4,16 @@ from dotenv import load_dotenv
 load_dotenv('.huggingface_env2')
 print(os.environ['HF_HOME'])
 
-from utils.common import ignore_warnings
-
-from datasets import load_dataset
+import faiss
 import math
 import numpy as np
+
+from utils.common import ignore_warnings
+from datasets import load_dataset
 from typing import List
-from transformers import PreTrainedTokenizer
 from collections import defaultdict
-from transformers import AutoTokenizer
-from collections import defaultdict
+from transformers import PreTrainedTokenizer, AutoTokenizer
 from sentence_transformers import SentenceTransformer
-import faiss
-from llama_index.core import Document, VectorStoreIndex, ServiceContext
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
 
 class BM25:

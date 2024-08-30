@@ -6,10 +6,6 @@ print(os.environ['HF_HOME'])
 
 import time
 from nemoguardrails import LLMRails, RailsConfig
-from langchain_community.utilities import ZapierNLAWrapper
-# import nest_asyncio
-# import asyncio
-import asyncio  # for running API calls concurrently
 
 if __name__ == '__main__':
     print("9.3절 데이터 검증")

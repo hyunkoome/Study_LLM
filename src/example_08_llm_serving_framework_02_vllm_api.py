@@ -63,4 +63,3 @@ if __name__ == '__main__':
     completion = client.completions.create(model=model_id,
                                            prompt=dataset.loc[0, 'prompt'], max_tokens=128)
     print("생성 결과:", completion.choices[0].text)
-

@@ -4,14 +4,8 @@ from dotenv import load_dotenv
 load_dotenv('.huggingface_env2')
 print(os.environ['HF_HOME'])
 
-import os
 from datasets import load_dataset
-from llama_index.core import Document, VectorStoreIndex
-
-from llama_index.core import (
-    VectorStoreIndex,
-    get_response_synthesizer,
-)
+from llama_index.core import Document, VectorStoreIndex, get_response_synthesizer
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.postprocessor import SimilarityPostprocessor

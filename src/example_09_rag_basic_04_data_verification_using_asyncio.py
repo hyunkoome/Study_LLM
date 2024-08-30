@@ -9,23 +9,6 @@ import openai
 from nemoguardrails import LLMRails, RailsConfig
 
 
-# async def generate_response(rails, messages):
-#     max_retries = 3  # 최대 재시도 횟수
-#     for attempt in range(max_retries):
-#         try:
-#             ans = await asyncio.to_thread(rails.generate, messages=messages)
-#             print(ans)
-#             break  # 성공적으로 응답을 받으면 루프 탈출
-#         except openai.RateLimitError as e:
-#         # except openai.error.RateLimitError as e:
-#             # Rate limit 에러가 발생하면 일정 시간 대기 후 재시도
-#             retry_after = int(e.response.headers.get("Retry-After", 20))
-#             print(f"Rate limit exceeded. Retrying after {retry_after} seconds...")
-#             await asyncio.sleep(retry_after)
-#         except Exception as e:
-#             print(f"An error occurred: {e}")
-#             break  # 다른 종류의 에러가 발생하면 루프 탈출
-
 async def generate_response(rails, messages):
     max_retries = 5  # 최대 재시도 횟수
     base_delay = 20  # 기본 대기 시간 (초)

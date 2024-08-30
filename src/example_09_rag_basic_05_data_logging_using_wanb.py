@@ -4,28 +4,9 @@ from dotenv import load_dotenv
 load_dotenv('.huggingface_env2')
 print(os.environ['HF_HOME'])
 
-import warnings
-
-# # 특정 경고 무시
-# warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-import os
-import wandb
-import datetime
 from openai import OpenAI
-from wandb.sdk.data_types.trace_tree import Trace
-
-from datasets import load_dataset
-import llama_index
-from llama_index.core import Document, VectorStoreIndex, ServiceContext
-from llama_index.llms.openai import OpenAI as llamaOpenAI
-from llama_index.core import set_global_handler
-from utils.common import ignore_warnings
 import time
-
-import os
 import wandb
-import datetime
 from llama_index.core import Document, VectorStoreIndex, ServiceContext, set_global_handler
 from llama_index.llms.openai import OpenAI as llamaOpenAI
 from wandb.sdk.data_types.trace_tree import Trace
