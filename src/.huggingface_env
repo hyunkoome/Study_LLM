@@ -4,3 +4,4 @@ HF_TOKEN="your hogging face tocken"
 HUGGINGFACE_TOCKEN="your hogging face tocken"
 HF_HOME="abs_path of your local cashe dir"
 OPENAI_API_KEY="your openai api key"
+TOKENIZERS_PARALLELISM=false
