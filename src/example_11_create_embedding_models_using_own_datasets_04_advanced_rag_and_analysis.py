@@ -183,7 +183,8 @@ if __name__ == '__main__':
     hit_rate, cosumed_time = evaluate_hit_rate(klue_mrc_test, base_embedding_model, base_index, 10)
     print(f"hit_rate: {hit_rate}")
     print(f"cosumed_time: {cosumed_time}")
-    # (0.88, 13.216430425643921)
+    # hit_rate: 0.864
+    # cosumed_time: 5.510005474090576
 
     print("\n## 예제 11.34 미세 조정한 임베딩 모델 평가")
     finetuned_embedding_model = SentenceTransformer('hyunkookim/klue-roberta-base-klue-sts-mrc')
@@ -191,7 +192,8 @@ if __name__ == '__main__':
     hit_rate, cosumed_time = evaluate_hit_rate(klue_mrc_test, finetuned_embedding_model, finetuned_index, 10)
     print(f"hit_rate: {hit_rate}")
     print(f"cosumed_time: {cosumed_time}")
-    # (0.946, 14.309881687164307)
+    # hit_rate: 0.95
+    # cosumed_time: 5.402112007141113
 
     print("\n## 예제 11.36 임베딩 모델과 교차 인코드를 조합해 성능 평가")
     cross_model = CrossEncoder('hyunkookim/klue-roberta-small-cross-encoder')
@@ -200,5 +202,6 @@ if __name__ == '__main__':
                                                                         cross_k=10)
     print(f"hit_rate: {hit_rate}")
     print(f"cosumed_time: {cosumed_time}")
-    # (0.973, 1103.055629491806)
+    # hit_rate: 0.971
+    # cosumed_time: 295.50445079803467
 
