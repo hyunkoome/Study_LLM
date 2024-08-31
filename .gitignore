@@ -205,3 +205,4 @@ yi-ko-6b-text2sql-full-fine-tuning/
 wandb/
 results/
 OAI_CONFIG_LIST.json
+checkpoints/
