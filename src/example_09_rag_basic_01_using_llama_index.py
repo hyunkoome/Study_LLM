@@ -9,11 +9,23 @@ from llama_index.core import Document, VectorStoreIndex, get_response_synthesize
 from llama_index.core.retrievers import VectorIndexRetriever
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.postprocessor import SimilarityPostprocessor
+# from llama_index.llms.openai import OpenAI
+
+from llama_index.llms.openai import OpenAI
+
+
+class CustomOpenAI(OpenAI):
+    def _prepare_chat_with_tools(self, message):
+        # Add here the appropriate implementation. Below is just a mockup.
+        # You should replace it with the actual implementation.
+        return {"text": message, "tools": "example_tool"}
 
 if __name__ == '__main__':
     print("#9.1절 검색 증강 생성(RAG)")
     print("예제 9.1. 데이터셋 다운로드 및 API 키 설정")
     # os.environ["OPENAI_API_KEY"] = "자신의 OpenAI API 키 입력"
+    llm = CustomOpenAI(model="gpt-3.5-turbo")
+
     dataset = load_dataset('klue', 'mrc', split='train')
     print(dataset[0])
 
@@ -34,9 +46,9 @@ if __name__ == '__main__':
     print(response[0].node.text)
 
     print("\n예제 9.4 라마인덱스를 활용해 검색 증강 생성 수행하기")
-    query_engine = index.as_query_engine(similarity_top_k=1)
+    query_engine = index.as_query_engine(similarity_top_k=1, llm=llm)
     response = query_engine.query(example_question)
-    print(response)
+    # print(response)
 
     print("\n예제 9.5 라마인덱스 내부에서 검색 증강 생성을 수행하는 과정")
     # 코드 출처: https://docs.llamaindex.ai/en/stable/understanding/querying/querying.html"
@@ -47,7 +59,8 @@ if __name__ == '__main__':
     )
 
     # 검색 결과를 질문과 결합하는 synthesizer
-    response_synthesizer = get_response_synthesizer()
+
+    response_synthesizer = get_response_synthesizer(llm=llm)
 
     # 위의 두 요소를 결합해 쿼리 엔진 생성
     query_engine = RetrieverQueryEngine(
