@@ -1,0 +1,9 @@
+HF_TOKEN="your hogging face tocken"
+HF_HOME="abs_path of your local cashe dir"
+HF_USERNAME="your hogging face user id"
+CUDA_LAUNCH_BLOCKING=1
+OPENAI_API_KEY="your openai api key"
+WANDB_API_KEY="your wandb api key"
+WANDB_DIR="your local abs_path for wandb"
+TOKENIZERS_PARALLELISM=false
+PINECONE_API_KEY="your pinecone api key"

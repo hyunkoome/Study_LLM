@@ -1,0 +1,29 @@
+#conda create -n llmbook python==3.10
+#pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu121
+#pip install transformers[torch]==4.44.1
+torch==2.3.1+cu121
+torchvision==0.18.1+cu121
+torchaudio==2.3.1+cu121
+
+transformers #>=4.40.1 #==4.44.1
+datasets #>=2.19.0
+jupyter #==1.0.0
+python-dotenv #==1.0.1
+accelerate #>=0.33.0
+bitsandbytes #>=0.43.3
+tiktoken #>=0.6.0
+autotrain-advanced #>=0.8.12
+peft #>=0.10.0
+auto-gptq #>=0.7.1
+autoawq #==0.2.5
+huggingface_hub #>=0.23.0
+optimum
+aiohttp #==3.10.5
+
+llama-index
+langchain-openai
+nemoguardrails[openai]
+openai
+chromadb
+wandb
+llama-index-callbacks-wandb
