@@ -40,13 +40,21 @@ from pathlib import Path
 
 def make_base64(image, image_png_save_full_path):
     buffered = BytesIO()
-    image.save(buffered, format="PNG")  # 파일로 저장되지 않고, 메모리 상의 buffered 객체에 png 형식의 이미지를 저장합니다.
+    # 이미지를 PNG 형식으로 인코딩하여 buffered 객체에 저장합니다. 이 과정에서 이미지가 바이너리 데이터로 변환
+    # 파일로 저장되지 않고, 메모리 상의 buffered 객체에 png 형식의 이미지를 저장합니다.
+    image.save(buffered, format="PNG")
+    # image.save(buffered, format="PNG") 부분이 주석 처리되면, buffered 객체에는 아무것도 저장되지 않습니다.
+    # 이 줄을 주석 처리하면
+    # -> 이미지 데이터가 buffered에 저장되지 않기 때문에
+    # -> buffered_data = buffered.getvalue()가 빈 데이터를 반환하므로,
+    # -> Base64로 인코딩한 img_str도 빈 문자열, 즉 img_str이 공백으로 나오는 것
 
-    buffered_data = buffered.getvalue()
+    buffered_data = buffered.getvalue() # buffered 객체에 저장된 바이너리 데이터를 가져와 buffered_data 변수에 저장
     # 메모리에서 파일로 저장
     with open(image_png_save_full_path, "wb") as f:
         f.write(buffered_data)
 
+    # 가져온 바이너리 데이터를 Base64로 인코딩하여 문자열로 변환합니다. 이 문자열이 img_str에 저장됨
     img_str = base64.b64encode(buffered_data).decode('utf-8')
     return img_str
 
@@ -128,16 +136,7 @@ def get_generated_images(original_image, original_prompt_image, searched_prompt_
 def create_pinecone_index(pinecone_client, index_name, embedding_dimension, similarity="cosine"):
     print(pinecone_client.list_indexes())
 
-    # index_name = "llm-multimodal"
     try:
-        # pinecone_client.create_index(
-        #     name=index_name,
-        #     dimension=512,
-        #     metric="cosine",
-        #     spec=ServerlessSpec(
-        #         "aws", "us-east-1"
-        #     )
-        # )
         pinecone_client.create_index(
             name=index_name,
             dimension=embedding_dimension,  # 512
