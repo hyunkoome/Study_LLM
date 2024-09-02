@@ -1,5 +1,7 @@
 # Study_LLM
 
+<img src="./study_llm.png"></img><br/>
+
 ### This code is a modified version from [LLM을 활용한 실전 AI 애플리케이션 개발](https://github.com/onlybooks/llm).
 - This code has been confirmed and tested to work correctly on both GPUs of A100 (80GB) and RTX 4090 (24GB).
 
