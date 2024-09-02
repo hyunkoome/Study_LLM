@@ -1,15 +1,14 @@
 # Study_LLM
 
 ### This code is a modified version from [LLM을 활용한 실전 AI 애플리케이션 개발](https://github.com/onlybooks/llm).
+- This code has been confirmed and tested to work correctly on both GPUs of A100 (80GB) and RTX 4090 (24GB).
 
+### Setting Python Environments
 - Dev Environments
   - OS: Ubuntu 20.04
   - CUDA: 12.1
   - CUDNN: 8.9.0
   - Python: 3.9 
-- This code has been confirmed and tested to work correctly on both GPUs of A100 (80GB) and RTX 4090 (24GB).
-
-### Setting Python Environments
 ```shell
 $ git clone https://github.com/hyunkoome/Study_LLM.git
 $ cd Study_LLM
