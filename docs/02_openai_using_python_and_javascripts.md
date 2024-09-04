@@ -1,14 +1,11 @@
-# Study_LLM
+### 파이썬과 자바스크립트로 배우는 OpenAI 프로그래밍
 
+<img src="./figures/02_openai_using_python_and_javascripts.png"></img><br/>
 
-### These codes are modified version from:
-1. LLM을 활용한 실전 AI 애플리케이션 개발: [Read Me](./docs/01_dev_AI_using_lmm.md)  
-   - 참고: 공식 코드 [GitHub](https://github.com/onlybooks/llm)
-2. 파이썬과 자바스크립트로 배우는 OpenAI 프로그래밍: [Read Me](./docs/02_openai_using_python_and_javascripts.md) 
-   - 참고: 공식 코드 [GitHub](https://github.com/moseskim/openaiapi)
+### This code is a modified version from [here](https://github.com/moseskim/openaiapi).
+- This code has been confirmed and tested to work correctly on both GPUs of A100 (80GB) and RTX 4090 (24GB).
 
 ### Setting Python Environments
-- Confirmed and tested to work correctly on both GPUs of A100 (80GB) and RTX 4090 (24GB).
 - Dev Environments
   - OS: Ubuntu 20.04
   - CUDA: 12.1
@@ -27,3 +24,5 @@ $ cd ..
 $ pip install -r src/requirements.txt --use-deprecated=legacy-resolver
 ```
 
+### 주요 책 목차 
+- 
