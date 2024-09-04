@@ -44,10 +44,7 @@ tqdm==4.66.4
 pinecone==5.1.0
 pinecone-client==5.0.1
 llama-index-vector-stores-pinecone==0.1.9
-
-#flask==3.0.3
-#blinker==1.8.2
-
+####################################################### below: added for 02_openai_using_python_and_javascripts
 annotated-types==0.6.0
 anyio==4.2.0
 blinker==1.7.0
