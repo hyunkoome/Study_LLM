@@ -2,9 +2,9 @@
 
 
 ### These codes are modified version from:
-1. LLM을 활용한 실전 AI 애플리케이션 개발: [Read Me](./docs/01_dev_AI_using_lmm.md)  
+1. LLM을 활용한 실전 AI 애플리케이션 개발: [Read Me](./01_dev_AI_using_lmm/README.md)  
    - 참고: 공식 코드 [GitHub](https://github.com/onlybooks/llm)
-2. 파이썬과 자바스크립트로 배우는 OpenAI 프로그래밍: [Read Me](./docs/02_openai_using_python_and_javascripts.md) 
+2. 파이썬과 자바스크립트로 배우는 OpenAI 프로그래밍: [Read Me](./02_openai_using_python_and_javascripts/README.md) 
    - 참고: 공식 코드 [GitHub](https://github.com/moseskim/openaiapi)
 
 ### Setting Python Environments
