@@ -206,4 +206,4 @@ wandb/
 results/
 OAI_CONFIG_LIST.json
 checkpoints/
-/src/data/sift1M/
+sift1M/
