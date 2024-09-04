@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Ajax Example</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.css" rel="stylesheet" crossorigin="anonymous">
+  <script src="./script.js"></script>
+</head>
+
+<body class="container" onload="init();">
+  <h1 class="display-6 py-2">Ajax Example</h1>
+  <div>
+    <label for="prompt">Prompt:</label>
+    <textarea id="prompt" name="prompt"
+      class="form-control"></textarea>
+  </div>
+  <center class="py-3">
+    <input type="button" value="Submit"
+      onclick="doAction()" class="btn btn-primary">
+  </center>
+  <pre id="result" class="border border-2 p-3"></pre>
+</body>
+
+</html>
