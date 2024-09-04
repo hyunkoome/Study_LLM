@@ -21,7 +21,7 @@ $ pip install transformers[torch]==4.44.1
 $ cd AutoGPTQ
 $ pip install -vvv --no-build-isolation -e .
 $ cd ..
-$ pip install -r src/requirements.txt --use-deprecated=legacy-resolver
+$ pip install -r 01_dev_AI_using_lmm/requirements.txt --use-deprecated=legacy-resolver
 ```
 
 ### 주요 책 목차 
