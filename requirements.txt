@@ -35,7 +35,7 @@ llama-index-callbacks-wandb==0.1.2
 faiss-cpu==1.8.0
 llama-index-embeddings-huggingface==0.2.3  # >=0.2.0  #==0.2.0 # 0.3.1
 sentence-transformers==3.0.1
-pyautogen[retrievechat]==0.2.6
+ag2[retrievechat]==0.2.6
 packaging==24.0
 Pillow==10.3.0
 pyyaml==6.0.1
